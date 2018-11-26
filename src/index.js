@@ -1,5 +1,5 @@
 
-document.addEventListener('DOMContentLoaded', () => {
+function getDogs(){
   fetch('http://localhost:3000/dogs')
   .then(res => res.json())
   .then(json => {
@@ -10,36 +10,55 @@ document.addEventListener('DOMContentLoaded', () => {
       `<tr><td class="name"> ${dog.name} </td> <td class="breed">${dog.breed}</td> <td class="sex">${dog.sex}</td> <td><button data-id=${dog.id} class="dog-edit">Edit</button></td></tr>`
 
     })
+})
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    getDogs()
+
     const form = document.querySelector("#dog-form")
     const submitButton = form.lastElementChild
     submitButton.addEventListener('click', () => {
-      let name = form.name.value
-      let breed = form.breed.value
-      let sex = form.sex.value
+        event.preventDefault()
+        const oldName = form.name.placeholder
+        const oldBreed = form.breed.placeholder
+        const oldSex = form.sex.placeholder
+      let name = form.name.value === "" ? oldName : form.name.value
+      let breed = form.breed.value === "" ? oldBreed : form.breed.value
+      let sex = form.sex.value === "" ? oldSex : form.sex.value
       let id = submitButton.dataset.id
-      const nameElement = document.querySelector('.name')
-      const breedElement = document.querySelector('.breed')
-      const sexElement = document.querySelector('.sex')
-      event.preventDefault()
+
+      // const dog = document.querySelector(`[data-id='${id}']`)
+      const nameElement = document.querySelector(`.name`)
+      const breedElement = document.querySelector(`.breed`)  // [data-id='${id}']
+      const sexElement = document.querySelector(`.sex`)
+
         fetch(`http://localhost:3000/dogs/${id}`, {
           method: "PATCH",
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({name: name, breed: breed, sex: sex})
+          body: JSON.stringify({id: id, name: name, breed: breed, sex: sex})
         }).then(response => response.json()).then(json => {
-          
-          let oldName = form.name.placeholder
-          let oldBreed = form.breed.placeholder
-          let oldSex = form.sex.placeholder
 
-          let name = json.name
-          let breed = json.breed
-          let sex = json.sex
+          nameElement.innerHTML = name
+          breedElement.innerHTML = breed
+          sexElement.innerHTML = sex
+          getDogs()
 
-          nameElement.innerHTML = name === "" ? oldName : name
-          breedElement.innerHTML = breed === "" ? oldBreed : breed
-          sexElement.innerHTML = sex === "" ? oldSex : sex
+
+          //
+
+// if name is nothing, default name to the old name else change the name
+          // const newName = json.name
+          // const newBreed = json.breed
+          // const newSex = json.sex
+
+
+          // nameElement.innerHTML = newName === "" ? oldName : newName
+          // breedElement.innerHTML = newBreed === "" ? oldBreed : newBreed
+          // sexElement.innerHTML = newSex === "" ? oldSex : newSex
         })
         // .then(res => res.json())
         // .then(json => {
@@ -68,4 +87,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       })
     })
-  })

@@ -2,15 +2,15 @@
   "dogs": [
     {
       "id": 1,
-      "name": "",
+      "name": "Blue",
       "breed": "Aussie",
-      "sex": "female"
+      "sex": "male"
     },
     {
       "id": 2,
-      "name": "Teddy",
-      "breed": "Rhodesian Ridgeback",
-      "sex": "female"
+      "name": "Maayan",
+      "breed": "Aussie",
+      "sex": "male"
     },
     {
       "id": 3,
@@ -20,9 +20,9 @@
     },
     {
       "id": 4,
-      "name": "Harvey",
+      "name": "Blue",
       "breed": "Irish Spaniel",
-      "sex": "male"
+      "sex": "female"
     },
     {
       "id": 5,
@@ -38,7 +38,7 @@
     },
     {
       "id": 7,
-      "name": "Diamond",
+      "name": "Di",
       "breed": "Labrador",
       "sex": "female"
     },
